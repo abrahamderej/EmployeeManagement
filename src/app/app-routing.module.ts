@@ -6,7 +6,8 @@ import { PersonalDetailComponent } from './employee/personal-detail/personal-det
 import { ProjectComponent } from './employee/project/project.component';
 
 const routes: Routes = [
-  {path: "", component: PersonalDetailComponent},
+  {path: "", component: DashboardComponent},
+  {path: "personal-detail", component: PersonalDetailComponent, outlet:'detail'},
   {path: "employee", component: EmployeeComponent},
   { path: 'project', component: ProjectComponent, pathMatch: 'prefix' },
    //       {path: "personal-detail", component: PersonalDetailComponent, pathMatch: 'prefix'}
