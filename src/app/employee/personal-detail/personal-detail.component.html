@@ -1,0 +1,151 @@
+<div class="container"> 
+    <div class="row">  
+        <div class="col-md-12">   
+            <form [formGroup]="employeeForm" id="ngEmployeeForm" (ngSubmit)="onFormSubmit()"> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">  
+                            <div class="col-md-4">  
+                                <label for="title">Title:</label>  
+                            </div>  
+                            <div class="col-md-8"> 
+                                <select class="form-control" id="title" formControlName="Title" required>
+                                    <option value="" selected disabled> Select Title</option>
+                                    <option *ngFor="let title of Title" [ngValue]="title" (change)="changeTitle($event)">{{title}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && employeeForm.controls.Title.errors" class="error">  
+                                    <div *ngIf="employeeForm.controls.Title.errors.required">Title is required</div>  
+                                </div> 
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">  
+                                    <label for="firstName">First Name:</label>  
+                            </div>  
+                            <div class="col-md-8">  
+                                    <input type="text" class="form-control" formControlName="FirstName">  
+                                        <div *ngIf="submitted && employeeForm.controls.FirstName.errors" class="error">  
+                                            <div *ngIf="employeeForm.controls.FirstName.errors.required">First name is required</div>  
+                                </div>  
+                            </div>
+                        </div>  
+                        <div class="row"> 
+                            <div class="col-md-4">  
+                                <label for="middleName">Middle Name:</label>  
+                            </div>  
+                            <div class="col-md-8">  
+                                <input type="text" class="form-control" formControlName="MiddleName">  
+                                    <div *ngIf="submitted && employeeForm.controls.MiddleName.errors" class="error">  
+                                        <div *ngIf="employeeForm.controls.MiddleName.errors.required">Middle name is required</div>  
+                                    </div>  
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">  
+                                <label for="lastName">Last Name:</label>  
+                            </div>  
+                            <div class="col-md-8">  
+                                <input type="text" class="form-control" formControlName="LastName">  
+                                    <div *ngIf="submitted && employeeForm.controls.LastName.errors" class="error">  
+                                        <div *ngIf="employeeForm.controls.LastName.errors.required">Last name is required</div>  
+                                    </div>  
+                            </div>  
+                        </div>
+                        <div class="row">  
+                            <div class="col-md-4">  
+                                <label for="gender">Gender:</label>  
+                            </div>  
+                            <div class="col-md-8">
+                                <select class="form-control" id="gender" formControlName="Gender" required>
+                                    <option value="" selected disabled> Select Gender</option>
+                                    <option *ngFor="let gender of Gender" [ngValue]="gender" (change)="changeGender($event)">{{gender}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && employeeForm.controls.Gender.errors" class="error">  
+                                    <div *ngIf="employeeForm.controls.Gender.errors.required">Gender is required</div>  
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row">  
+                            <div class="col-md-4">  
+                                <label for="gender">Nationality:</label>  
+                            </div>  
+                            <div class="col-md-8"> 
+                                <select class="form-control" id="nationality" formControlName="Nationality" required>
+                                    <option value="" selected disabled> Select Nationality</option>
+                                    <option *ngFor="let nationality of Nationality" [ngValue]="nationality" (change)="changeNationality($event)">{{nationality}}
+                                    </option>
+                                </select>
+                                <div *ngIf="submitted && employeeForm.controls.Nationality.errors" class="error">  
+                                    <div *ngIf="employeeForm.controls.Nationality.errors.required">Gender is required</div>  
+                                </div>
+                            </div>    
+                        </div>  
+                        <div class="row">  
+                            <div class="col-md-4">  
+                                <label for="birthDate">Birth Date:</label>  
+                            </div>  
+                            <div class="col-md-8">
+                                <input type="text"  [bsConfig]="datePickerConfig" bsDatepicker class="form-control" formControlName="BirthDate">  
+                                <div *ngIf="submitted && employeeForm.controls.BirthDate.errors" class="error">  
+                                    <div *ngIf="employeeForm.controls.BirthDate.errors.required">Birth Date is required</div>  
+                                </div>  
+                            </div>  
+                        </div>  
+                        <div class="row">  
+                            <div class="col-md-4">  
+                                <label for="status">Status:</label>  
+                            </div>  
+                            <div class="col-md-2" style="margin-right: 5px;">  
+                                <input type="checkbox" class="form-control" formControlName="Active">  
+                                    <div *ngIf="submitted && employeeForm.controls.Active.errors" class="error">  
+                                        <div *ngIf="employeeForm.controls.Active.errors.required">Status is required</div>  
+                                    </div>  
+                            </div>  
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">  
+                                <label for="remark">Remark:</label>  
+                            </div>  
+                            <div class="col-md-8">  
+                                <input type="text" class="form-control" formControlName="Remark">  
+                                <!--<div *ngIf="submitted && employeeForm.controls.Remark.errors" class="error">  
+                                    <div *ngIf="employeeForm.controls.Remark.errors.required">Remark is required</div>  
+                                </div>-->  
+                            </div> 
+                        </div>
+                    </div> 
+            
+                </div>
+                <hr style="margin-top: -10px;">  
+            </form>
+              
+                <!-- buttons -->
+                <div style="margin-top: -20px;" class="row">  
+                    <div class="col-md-8" ></div> 
+                    <div class="col-md-4" style="text-align: right;" >  
+                        <button form="ngEmployeeForm" style="margin-right: 8px;" [disabled]="!employeeForm.valid" type="submit" class="btn btn-sm btn-primary">Submit</button>  
+                        <button  style="margin-right: 8px; " class="btn btn-sm btn-warning" (click)="resetForm()" > Clear</button>
+                        <!-- event binding  -->
+                        <!-- <button style="margin-right: 8px;" class="btn btn-sm btn-success button" (click)="add()">Add </button>     -->
+
+                        <button form="ngEmployeeForm" style="margin-right: 8px;" [disabled]="!employeeForm.valid" class="btn btn-sm btn-primary" type="submit" (click)="onFormSubmit()">Edit </button>    
+
+                        <button  class="btn btn-sm btn-danger" (click)="deleteEmployee()">Delete </button>   
+                    </div>  
+                </div>  
+         </div>  
+    </div>  
+    
+    <div>        
+        <!-- [columnDefs] -- property binding  -->
+        <ag-grid-angular style="width: 100%; height: 200px;" class="ag-theme-blue" 
+        (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" (selectionChanged)="onSelectionChanged($event)" 
+         (rowClicked) = "onRowClicked($event)"
+[columnDefs]="columnDefs" [rowData]="employees" rowSelection="single" [pagination]="true" paginationPageSize=5
+></ag-grid-angular> 
+    </div> 
+</div>  

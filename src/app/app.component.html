@@ -1,0 +1,7 @@
+<ul class="nav nav-tabs">
+    <li class="nav-item" (click)="tab='Employee'" [class.active]="tab=='Employee'">
+        <a class="nav-link" [routerLink]="['/project']" translate>Employee</a>
+    </li>
+</ul>
+<a class="nav-link" [routerLink]="['/employee']" translate>Employee</a>
+<router-outlet></router-outlet>
