@@ -36,7 +36,7 @@ export class PersonalDetailComponent implements OnInit {
   Title: any = ['ATO', 'WRO', 'W/T']; 
   Gender: any = ['Male', 'Female'] ; 
   Nationality: any = ['Ethiopia', 'Kenya', 'Sudan', 'South Sudan', 'Djibuti'] ;
-  //projects: any;
+  
   constructor( private formBuilder: FormBuilder, private router: Router, private employeeService: EmployeeService,private toastr:ToastrService ) {  
       this.columnDefs = this.createColumnDefs(); 
       this.datePickerConfig = Object.assign({},
@@ -58,7 +58,7 @@ export class PersonalDetailComponent implements OnInit {
     this.getEmployeeList();
   } 
 
-  initializeEmployeeForm(){
+  private initializeEmployeeForm(){
     this.employeeForm = this.formBuilder.group({  
       Title: ["", Validators.required],  
       "FirstName": ["", Validators.required],  
@@ -69,28 +69,37 @@ export class PersonalDetailComponent implements OnInit {
       "Gender": ["", Validators.required],  
       "Active": ["", Validators.requiredTrue],  
       "Remark": ["", ],
-      "projects": this.formBuilder.array([]),  
+      "projects": this.formBuilder.array([this.newProject()]),  
     });
   }
 
-  get projects(): FormArray{
+  // create form array
+  public get projects(): FormArray{
     return this.employeeForm.get("projects") as FormArray;
   }
-  newProject() : FormGroup{
+
+  // intialize employee Form
+  private newProject() : FormGroup{
     return this.formBuilder.group({
       "Name": '',
       "Description" : '',
     })
   }
-  addProjects(){
+
+  // add project Form
+  public addProjects(){
     this.projects.push(this.newProject())
   }
-  removeProject(i : number){
-    this.projects.removeAt(i);
+
+  // remove project Form
+  public removeProject(i : number){
+    if(this.projects.length >1){
+      this.projects.removeAt(i);
+    }
   }
 
   // one grid initialisation, grap the APIs and auto resize the columns to fit the available space  
-  onGridReady(params): void {  
+  public onGridReady(params): void {  
       this.gridApi = params.api;  
       this.columnApi = params.columnApi;  
       this.gridApi.sizeColumnsToFit();
@@ -202,26 +211,26 @@ export class PersonalDetailComponent implements OnInit {
 // save method which include creating new and updating existing
   CreateEmployee(employee: Employee) {
     console.log(this.employeeForm.value);
-    // if (this.employeeIdUpdate == null) {
-    //   this.employeeService.addEmployee(employee).subscribe(
-    //     () => {
-    //       this.dataSaved = true;
-    //       this.toastr.success("successfully created "); 
-    //       this.getEmployeeList();
-    //       this.employeeIdUpdate = null;
-    //       this.employeeForm.reset();
-    //     }
-    //   );
-    // } else {
-    //   employee.Code = this.employeeIdUpdate;
-    //   this.employeeService.updateEmployee(employee.Code, employee).subscribe(() => {
-    //     this.dataSaved = true;
-    //     this.toastr.success("successfully updated "); 
-    //     this.getEmployeeList();
-    //     this.employeeIdUpdate = null;
-    //     this.employeeForm.reset();
-    //   });
-    // }
+    if (this.employeeIdUpdate == null) {
+      this.employeeService.addEmployee(employee).subscribe(
+        () => {
+          this.dataSaved = true;
+          this.toastr.success("successfully created "); 
+          this.getEmployeeList();
+          this.employeeIdUpdate = null;
+          this.employeeForm.reset();
+        }
+      );
+    } else {
+      employee.Code = this.employeeIdUpdate;
+      this.employeeService.updateEmployee(employee.Code, employee).subscribe(() => {
+        this.dataSaved = true;
+        this.toastr.success("successfully updated "); 
+        this.getEmployeeList();
+        this.employeeIdUpdate = null;
+        this.employeeForm.reset();
+      });
+    }
   } 
 
   // on row selecting change

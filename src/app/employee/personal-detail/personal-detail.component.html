@@ -152,12 +152,11 @@
                             <div formArrayName="projects">
                                 <div *ngFor="let project of projects.controls; let i=index">
                                     <div [formGroupName]="i">
-                                        {{i}}
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <div class="row">
                                                     <div class="col-md-4">  
-                                                        <label for="name">Project Name:</label>  
+                                                        <label for="name">Name:</label>  
                                                     </div>  
                                                     <div class="col-md-8">  
                                                             <input type="text" class="form-control form-control-xs" formControlName="Name">  
@@ -167,7 +166,7 @@
                                                     </div>
                                                 </div> 
                                             </div>
-                                             <div class="col-md-6">
+                                             <div class="col-md-5">
                                                 <div class="row"> 
                                                     <div class="col-md-4">  
                                                         <label for="middleName">Description:</label>  
@@ -180,13 +179,16 @@
                                                     </div>  
                                                 </div>
                                             </div> 
+                                            <div class="col-md-1">
+                                                <button class="btn btn-sm btn-danger" (click)= "removeProject(i)">Remove</button> 
+                                            </div>
+                                            <div class="col-md-1">
+                                                <button class="btn btn-sm btn-primary" type="button" (click)="addProjects()">Add</button></div>
                                         </div>
-                                        <button (click)= "removeProject(i)">Remove</button> 
 
                                     </div>
                                 </div>
                             </div> 
-                            <button type="button" (click)="addProjects()">Add</button>
                             <!-- {{this.employeeForm.value |json}} -->
                         </div>
                       </div>
