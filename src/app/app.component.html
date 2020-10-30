@@ -1,11 +1,32 @@
+<ng-sidebar-container>
+    <ng-sidebar [opened]="opened">
+        <button  (click)="toggleSidebar()"  style="box-shadow: none;">
+            <img src="assets/images/icon3.png" height="30px" width="30px" />
+        </button>
+        <ul class="menu">
+            <li><a routerLink="/" (click)="toggleSidebar()"> DashBoard</a></li>
+            <li >
+                <a [routerLink]="['/employee']" (click)="toggleSidebar()"> Employee</a>
+            </li>
+            <li><a routerLink="/detail-employee" (click)="toggleSidebar()"> Detail Employee</a></li>
+            <li><a routerLink="/add-employee" (click)="toggleSidebar()"> add Employee</a></li>
+            <li><a routerLink="/employee" (click)="toggleSidebar()"> Employee</a></li>
+        </ul>
+    </ng-sidebar>
+    <div ng-sidebar-content>
+        <button (click)="toggleSidebar()"  style="box-shadow: none;">
+            <img src="assets/images/icon2.png" height="30px" width="30px" />
+        </button>
+        <router-outlet></router-outlet>
+    </div>
+</ng-sidebar-container>
+<!-- <router-outlet></router-outlet> -->
 <ul class="nav nav-tabs">
     <li class="nav-item" (click)="tab='Employee'" [class.active]="tab=='Employee'">
-        <a class="nav-link" [routerLink]="['/project']" translate>Employee</a>
+        <a class="nav-link" [routerLink]="['/employee']" translate>Employee</a>
+        
     </li>
+    <!-- <li class="nav-item" (click)="tab='Project'" [class.active]="tab=='Project'">
+        <a class="nav-link" [routerLink]="['/project']" translate>Project</a>
+    </li> -->
 </ul>
-<a class="nav-link" [routerLink]="['/employee']" translate>Employee</a>
-<router-outlet></router-outlet>
-<div class="row">
-    <a class="nav-link" [routerLink]="['/personal-detail']" translate>personal-detail</a>
- <router-outlet name='detail'></router-outlet>
-</div>

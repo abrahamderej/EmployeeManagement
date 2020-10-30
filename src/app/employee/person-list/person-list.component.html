@@ -1,0 +1,12 @@
+<div class="container">  
+    
+    <div>        
+        <!-- [columnDefs] -- property binding  -->
+        <ag-grid-angular style="width: 100%; height: 200px;" class="ag-theme-blue" 
+        (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" (selectionChanged)="onSelectionChanged($event)" 
+         (rowClicked) = "onRowClicked($event)"
+[columnDefs]="columnDefs" [rowData]="employees" rowSelection="single" [pagination]="true" paginationPageSize=5
+></ag-grid-angular> 
+    </div> 
+</div>  
+

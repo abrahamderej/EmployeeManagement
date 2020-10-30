@@ -1,7 +1,7 @@
 
 import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { ColDef, GridApi, ColumnApi, GridOptions } from 'ag-grid-community'; 
-import { Validators, FormBuilder } from '@angular/forms'; 
+import { FormArray,Validators, FormBuilder, FormGroup } from '@angular/forms'; 
 import { BsDatepickerConfig} from 'ngx-bootstrap/datepicker';
 import { ToastrService } from 'ngx-toastr'; 
 import {Router} from '@angular/router';
@@ -12,7 +12,7 @@ import { Employee } from '../../model/employee';
 @Component({
   selector: 'app-personal-detail',
   templateUrl: './personal-detail.component.html',
-  styleUrls: ['./personal-detail.component.scss']
+  styleUrls: ['./personal-detail.component.scss', '../employee.component.scss']
 })
 export class PersonalDetailComponent implements OnInit {
  
@@ -32,11 +32,11 @@ export class PersonalDetailComponent implements OnInit {
   gridOptions: GridOptions; //Declare gridoptions
   
   submitted: boolean= false;  
-  employeeForm: any; // form name
+  employeeForm: FormGroup; // form name
   Title: any = ['ATO', 'WRO', 'W/T']; 
   Gender: any = ['Male', 'Female'] ; 
   Nationality: any = ['Ethiopia', 'Kenya', 'Sudan', 'South Sudan', 'Djibuti'] ;
-
+  //projects: any;
   constructor( private formBuilder: FormBuilder, private router: Router, private employeeService: EmployeeService,private toastr:ToastrService ) {  
       this.columnDefs = this.createColumnDefs(); 
       this.datePickerConfig = Object.assign({},
@@ -45,14 +45,22 @@ export class PersonalDetailComponent implements OnInit {
       }); 
       
       this.gridOptions = {
+        columnDefs :this.createColumnDefs(),
+        masterDetail: true,
        // onRowDoubleClicked(): this.onRowDoubleClicked(any)
       
     }
   }  
 
   ngOnInit() {  
+     
+    this.initializeEmployeeForm();
+    this.getEmployeeList();
+  } 
+
+  initializeEmployeeForm(){
     this.employeeForm = this.formBuilder.group({  
-      "Title": ["", Validators.required],  
+      Title: ["", Validators.required],  
       "FirstName": ["", Validators.required],  
       "MiddleName": ["", Validators.required],  
       "LastName": ["", Validators.required],  
@@ -60,11 +68,26 @@ export class PersonalDetailComponent implements OnInit {
       "BirthDate": ["", Validators.required],  
       "Gender": ["", Validators.required],  
       "Active": ["", Validators.requiredTrue],  
-      "Remark": ["", ]   
-    }); 
+      "Remark": ["", ],
+      "projects": this.formBuilder.array([]),  
+    });
+  }
 
-    this.getEmployeeList();
-  } 
+  get projects(): FormArray{
+    return this.employeeForm.get("projects") as FormArray;
+  }
+  newProject() : FormGroup{
+    return this.formBuilder.group({
+      "Name": '',
+      "Description" : '',
+    })
+  }
+  addProjects(){
+    this.projects.push(this.newProject())
+  }
+  removeProject(i : number){
+    this.projects.removeAt(i);
+  }
 
   // one grid initialisation, grap the APIs and auto resize the columns to fit the available space  
   onGridReady(params): void {  
@@ -80,7 +103,7 @@ export class PersonalDetailComponent implements OnInit {
             field: 'Code',
             filter: false,
             editable: false,
-            sortable: false
+            sortable: false,
           }, {
             headerName: 'Title',
             field: 'Title',
@@ -178,26 +201,27 @@ export class PersonalDetailComponent implements OnInit {
 
 // save method which include creating new and updating existing
   CreateEmployee(employee: Employee) {
-    if (this.employeeIdUpdate == null) {
-      this.employeeService.addEmployee(employee).subscribe(
-        () => {
-          this.dataSaved = true;
-          this.toastr.success("successfully created "); 
-          this.getEmployeeList();
-          this.employeeIdUpdate = null;
-          this.employeeForm.reset();
-        }
-      );
-    } else {
-      employee.Code = this.employeeIdUpdate;
-      this.employeeService.updateEmployee(employee).subscribe(() => {
-        this.dataSaved = true;
-        this.toastr.success("successfully updated "); 
-        this.getEmployeeList();
-        this.employeeIdUpdate = null;
-        this.employeeForm.reset();
-      });
-    }
+    console.log(this.employeeForm.value);
+    // if (this.employeeIdUpdate == null) {
+    //   this.employeeService.addEmployee(employee).subscribe(
+    //     () => {
+    //       this.dataSaved = true;
+    //       this.toastr.success("successfully created "); 
+    //       this.getEmployeeList();
+    //       this.employeeIdUpdate = null;
+    //       this.employeeForm.reset();
+    //     }
+    //   );
+    // } else {
+    //   employee.Code = this.employeeIdUpdate;
+    //   this.employeeService.updateEmployee(employee.Code, employee).subscribe(() => {
+    //     this.dataSaved = true;
+    //     this.toastr.success("successfully updated "); 
+    //     this.getEmployeeList();
+    //     this.employeeIdUpdate = null;
+    //     this.employeeForm.reset();
+    //   });
+    // }
   } 
 
   // on row selecting change

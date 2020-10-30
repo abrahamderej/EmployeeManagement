@@ -3,48 +3,73 @@ import { HttpClient,   HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs'; 
 
 import { Employee } from '../model/employee';
-import { Person } from '../model/person';
+import { Project } from '../model/project';
 
 @Injectable({  providedIn: 'root'  })  
 
 export class EmployeeService {
   
-  apiUrl: string = "http://localhost:60008/api/Employee/" 
+  apiUrl: string = "http://localhost:58733/api/People/";
+  projectUrl: string = "http://localhost:58733/api/Projects/"; 
 
   constructor(private http: HttpClient) {}  
 
-  editEmployee(employee: Employee) {  
-      return this.http.put(this.apiUrl + 'UpdateEmployeeDetails/', employee);  
-  }  
-
+  
   public getEmployeeDetailById(Code: string): Observable <Employee>{
-      return this.http.get <Employee>(`${this.apiUrl}GetEmployeeDetailById` + Code );
+      return this.http.get <Employee>(`${this.apiUrl}GetPeopleDetailById` + Code );
   }
   // get list of employees service
   public getEmployees(): Observable < Employee[] > {  
-      return this.http.get < Employee[] > (`${this.apiUrl}GetEmployeeDetails`);  
-  }  
+      return this.http.get < Employee[] > (`${this.apiUrl}GetPeopleDetails`);  
+  } 
+  
+  // get list of projects service
+  public getprojects(): Observable < Project[] > {  
+    return this.http.get < Project[] > (`${this.projectUrl}GetProjectDetails`);  
+}  
+  
 
   // create employee service
   public addEmployee(employee: Employee): Observable < string > {  
 
-      const httpOptions = {  
-          headers: new HttpHeaders({  
-              'Content-Type': 'application/json'  
-          })  
-      };  
-      return this.http.post < string > (`${this.apiUrl}/InsertEmployeeDetails/`, employee, httpOptions);  
-  }  
+    const httpOptions = {  
+        headers: new HttpHeaders({  
+            'Content-Type': 'application/json'  
+        })  
+    };  
+    return this.http.post < string > (`${this.apiUrl}InsertPeopleDetails/`, employee, httpOptions);  
+} 
+
+// create project service
+public addProject(project: Project): Observable < string > {  
+
+    const httpOptions = {  
+        headers: new HttpHeaders({  
+            'Content-Type': 'application/json'  
+        })  
+    };  
+    return this.http.post < string > (`${this.apiUrl}InsertProjectDetails/`, project, httpOptions);  
+}  
 
   // update employee
-  public updateEmployee(employee: Employee): Observable < string > {  
+  public updateEmployee(Code: number, employee: Employee): Observable < string > {  
       const httpOptions = {  
           headers: new HttpHeaders({  
               'Content-Type': 'application/json'  
           })  
       };  
-      return this.http.put < string > (`${this.apiUrl}UpdateEmployeeDetails/`, employee, httpOptions);  
+      return this.http.put < string > (`${this.apiUrl}UpdatePeopleDetails/` + Code, employee, httpOptions);  
   }  
+
+  // update project
+  public updateProject(id: number, project: Project): Observable < string > {  
+    const httpOptions = {  
+        headers: new HttpHeaders({  
+            'Content-Type': 'application/json'  
+        })  
+    };  
+    return this.http.put < string > (`${this.apiUrl}UpdateProjectDetails/` + id, project, httpOptions);  
+}
 
   // delete employee
   public deleteEmployee(Code: string): Observable < string > {  
@@ -53,6 +78,16 @@ export class EmployeeService {
               'Content-Type': 'application/json'  
           })  
       };  
-      return this.http.delete < string > (`${this.apiUrl}DeleteEmployeeDetails?Code=` + Code, httpOptions);  
+      return this.http.delete < string > (`${this.apiUrl}DeletePeopleDetails/` + Code, httpOptions);  
   }  
+
+   // delete Project
+   public deleteProject(id: number): Observable < string > {  
+    const httpOptions = {  
+        headers: new HttpHeaders({  
+            'Content-Type': 'application/json'  
+        })  
+    };  
+    return this.http.delete < string > (`${this.apiUrl}DeleteProjectDetails/` + id, httpOptions);  
+} 
 }  

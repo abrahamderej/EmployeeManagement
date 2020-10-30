@@ -1,6 +1,22 @@
 <div class="container"> 
     <div class="row">  
-        <div class="col-md-12">   
+        <div class="col-md-12"> 
+            <!-- buttons -->
+            <div style="margin-top: -20px;" class="row">   
+                <div class="col-md-4" style="text-align: left;" >  
+                    <button form="ngEmployeeForm" style="margin-right: 8px;" [disabled]="!employeeForm.valid" type="submit" class="btn btn-sm btn-primary">Submit</button>  
+                    <button  style="margin-right: 8px; " class="btn btn-sm btn-warning" (click)="resetForm()" > Clear</button>
+                    <!-- event binding  -->
+                    <!-- <button style="margin-right: 8px;" class="btn btn-sm btn-success button" (click)="add()">Add </button>     -->
+
+                    <button form="ngEmployeeForm" style="margin-right: 8px;" [disabled]="!employeeForm.valid" class="btn btn-sm btn-primary" type="submit" (click)="onFormSubmit()">Edit </button>    
+
+                    <button  class="btn btn-sm btn-danger" (click)="deleteEmployee()">Delete </button>   
+                </div> 
+                <div class="col-md-8" ></div> 
+            </div>  
+
+            <hr style="margin-top: 0px;">  
             <form [formGroup]="employeeForm" id="ngEmployeeForm" (ngSubmit)="onFormSubmit()"> 
                 <div class="row">
                     <div class="col-md-6">
@@ -9,7 +25,7 @@
                                 <label for="title">Title:</label>  
                             </div>  
                             <div class="col-md-8"> 
-                                <select class="form-control" id="title" formControlName="Title" required>
+                                <select class="form-control form-control-xs" id="title" formControlName="Title" required>
                                     <option value="" selected disabled> Select Title</option>
                                     <option *ngFor="let title of Title" [ngValue]="title" (change)="changeTitle($event)">{{title}}
                                     </option>
@@ -24,7 +40,7 @@
                                     <label for="firstName">First Name:</label>  
                             </div>  
                             <div class="col-md-8">  
-                                    <input type="text" class="form-control" formControlName="FirstName">  
+                                    <input type="text" class="form-control form-control-xs" formControlName="FirstName">  
                                         <div *ngIf="submitted && employeeForm.controls.FirstName.errors" class="error">  
                                             <div *ngIf="employeeForm.controls.FirstName.errors.required">First name is required</div>  
                                 </div>  
@@ -35,7 +51,7 @@
                                 <label for="middleName">Middle Name:</label>  
                             </div>  
                             <div class="col-md-8">  
-                                <input type="text" class="form-control" formControlName="MiddleName">  
+                                <input type="text" class="form-control form-control-xs" formControlName="MiddleName">  
                                     <div *ngIf="submitted && employeeForm.controls.MiddleName.errors" class="error">  
                                         <div *ngIf="employeeForm.controls.MiddleName.errors.required">Middle name is required</div>  
                                     </div>  
@@ -46,7 +62,7 @@
                                 <label for="lastName">Last Name:</label>  
                             </div>  
                             <div class="col-md-8">  
-                                <input type="text" class="form-control" formControlName="LastName">  
+                                <input type="text" class="form-control form-control-xs" formControlName="LastName">  
                                     <div *ngIf="submitted && employeeForm.controls.LastName.errors" class="error">  
                                         <div *ngIf="employeeForm.controls.LastName.errors.required">Last name is required</div>  
                                     </div>  
@@ -57,7 +73,7 @@
                                 <label for="gender">Gender:</label>  
                             </div>  
                             <div class="col-md-8">
-                                <select class="form-control" id="gender" formControlName="Gender" required>
+                                <select class="form-control form-control-xs" id="gender" formControlName="Gender" required>
                                     <option value="" selected disabled> Select Gender</option>
                                     <option *ngFor="let gender of Gender" [ngValue]="gender" (change)="changeGender($event)">{{gender}}
                                     </option>
@@ -74,7 +90,7 @@
                                 <label for="gender">Nationality:</label>  
                             </div>  
                             <div class="col-md-8"> 
-                                <select class="form-control" id="nationality" formControlName="Nationality" required>
+                                <select class="form-control form-control-xs" id="nationality" formControlName="Nationality" required>
                                     <option value="" selected disabled> Select Nationality</option>
                                     <option *ngFor="let nationality of Nationality" [ngValue]="nationality" (change)="changeNationality($event)">{{nationality}}
                                     </option>
@@ -89,7 +105,7 @@
                                 <label for="birthDate">Birth Date:</label>  
                             </div>  
                             <div class="col-md-8">
-                                <input type="text"  [bsConfig]="datePickerConfig" bsDatepicker class="form-control" formControlName="BirthDate">  
+                                <input type="text"  [bsConfig]="datePickerConfig" bsDatepicker class="form-control form-control-xs" formControlName="BirthDate">  
                                 <div *ngIf="submitted && employeeForm.controls.BirthDate.errors" class="error">  
                                     <div *ngIf="employeeForm.controls.BirthDate.errors.required">Birth Date is required</div>  
                                 </div>  
@@ -100,7 +116,7 @@
                                 <label for="status">Status:</label>  
                             </div>  
                             <div class="col-md-2" style="margin-right: 5px;">  
-                                <input type="checkbox" class="form-control" formControlName="Active">  
+                                <input type="checkbox" class="form-control form-control-xs" formControlName="Active">  
                                     <div *ngIf="submitted && employeeForm.controls.Active.errors" class="error">  
                                         <div *ngIf="employeeForm.controls.Active.errors.required">Status is required</div>  
                                     </div>  
@@ -111,7 +127,7 @@
                                 <label for="remark">Remark:</label>  
                             </div>  
                             <div class="col-md-8">  
-                                <input type="text" class="form-control" formControlName="Remark">  
+                                <input type="text" class="form-control form-control-xs" formControlName="Remark">  
                                 <!--<div *ngIf="submitted && employeeForm.controls.Remark.errors" class="error">  
                                     <div *ngIf="employeeForm.controls.Remark.errors.required">Remark is required</div>  
                                 </div>-->  
@@ -120,32 +136,83 @@
                     </div> 
             
                 </div>
-                <hr style="margin-top: -10px;">  
+                <hr style="margin-top: 0px;"> 
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                      <div class="card-header card-header-xs" id="headingOne">
+                        <h2 class="mb-0">
+                          <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Assign Project
+                          </button>
+                        </h2>
+                      </div>
+                  
+                      <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <div formArrayName="projects">
+                                <div *ngFor="let project of projects.controls; let i=index">
+                                    <div [formGroupName]="i">
+                                        {{i}}
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col-md-4">  
+                                                        <label for="name">Project Name:</label>  
+                                                    </div>  
+                                                    <div class="col-md-8">  
+                                                            <input type="text" class="form-control form-control-xs" formControlName="Name">  
+                                                                <div *ngIf="submitted && employeeForm.controls.Name.errors" class="error">  
+                                                                    <div *ngIf="employeeForm.controls.Name.errors.required">Name is required</div>  
+                                                        </div>  
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                             <div class="col-md-6">
+                                                <div class="row"> 
+                                                    <div class="col-md-4">  
+                                                        <label for="middleName">Description:</label>  
+                                                    </div>  
+                                                    <div class="col-md-8">  
+                                                        <input type="text" class="form-control form-control-xs" formControlName="Description">  
+                                                            <div *ngIf="submitted && employeeForm.controls.Description.errors" class="error">  
+                                                                <div *ngIf="employeeForm.controls.Description.errors.required">Description is required</div>  
+                                                            </div>  
+                                                    </div>  
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <button (click)= "removeProject(i)">Remove</button> 
+
+                                    </div>
+                                </div>
+                            </div> 
+                            <button type="button" (click)="addProjects()">Add</button>
+                            <!-- {{this.employeeForm.value |json}} -->
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div>
+                    <button  class="btn btn-sm " data-toggle="collapse" data-target="#content"> </button>   
+       
+                   <div class="collapse" id="content">
+                    <img src="assets/images/1.png" height="30px" width="30px"/>
+                   </div>
+               </div>
+                <hr style="margin-top: 0px;">  
             </form>
               
-                <!-- buttons -->
-                <div style="margin-top: -20px;" class="row">  
-                    <div class="col-md-8" ></div> 
-                    <div class="col-md-4" style="text-align: right;" >  
-                        <button form="ngEmployeeForm" style="margin-right: 8px;" [disabled]="!employeeForm.valid" type="submit" class="btn btn-sm btn-primary">Submit</button>  
-                        <button  style="margin-right: 8px; " class="btn btn-sm btn-warning" (click)="resetForm()" > Clear</button>
-                        <!-- event binding  -->
-                        <!-- <button style="margin-right: 8px;" class="btn btn-sm btn-success button" (click)="add()">Add </button>     -->
-
-                        <button form="ngEmployeeForm" style="margin-right: 8px;" [disabled]="!employeeForm.valid" class="btn btn-sm btn-primary" type="submit" (click)="onFormSubmit()">Edit </button>    
-
-                        <button  class="btn btn-sm btn-danger" (click)="deleteEmployee()">Delete </button>   
-                    </div>  
-                </div>  
-         </div>  
-    </div>  
-    
+                 
+         </div>
+    </div>   
+     
+        
     <div>        
         <!-- [columnDefs] -- property binding  -->
         <ag-grid-angular style="width: 100%; height: 200px;" class="ag-theme-blue" 
         (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" (selectionChanged)="onSelectionChanged($event)" 
          (rowClicked) = "onRowClicked($event)"
-[columnDefs]="columnDefs" [rowData]="employees" rowSelection="single" [pagination]="true" paginationPageSize=5
+ [rowData]="employees"  rowSelection="single" [pagination]="true" paginationPageSize=5
 ></ag-grid-angular> 
     </div> 
 </div>  

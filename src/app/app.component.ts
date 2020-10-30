@@ -6,6 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'EmployeeAngular';
   tab = "";
+  opened = false;
+  constructor() {
+  }
+  public toggleSidebar() {
+    this.opened = !this.opened;
+  }
 }

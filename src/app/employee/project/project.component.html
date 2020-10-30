@@ -1,1 +1,46 @@
-<p>project works!</p>
+<div class="container"> 
+    <div class="row">  
+        <div class="col-md-12">   
+            <form [formGroup]="projectForm" id="ngProjectForm" (ngSubmit)="onFormSubmit()"> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-4">  
+                                <label for="name">Project Name:</label>  
+                            </div>  
+                            <div class="col-md-8">  
+                                    <input type="text" class="form-control form-control-xs" formControlName="Name">  
+                                        <div *ngIf="submitted && projectForm.controls.Name.errors" class="error">  
+                                            <div *ngIf="projectForm.controls.Name.errors.required">Name is required</div>  
+                                </div>  
+                            </div>
+                        </div> 
+                    </div>
+                     <div class="col-md-6">
+                        <div class="row"> 
+                            <div class="col-md-4">  
+                                <label for="middleName">Description:</label>  
+                            </div>  
+                            <div class="col-md-8">  
+                                <input type="text" class="form-control form-control-xs" formControlName="Description">  
+                                    <div *ngIf="submitted && projectForm.controls.Description.errors" class="error">  
+                                        <div *ngIf="projectForm.controls.Description.errors.required">Description is required</div>  
+                                    </div>  
+                            </div>  
+                        </div>
+                    </div> 
+            
+                </div>  
+            </form>
+         </div>  
+    </div>  
+    
+    <div>        
+        <!-- [columnDefs] -- property binding 
+        <ag-grid-angular style="width: 100%; height: 200px;" class="ag-theme-blue" 
+        (gridReady)="onGridReady($event)" [gridOptions]="gridOptions" (selectionChanged)="onSelectionChanged($event)" 
+         
+[columnDefs]="columnDefs" [rowData]="projects" rowSelection="single" [pagination]="true" paginationPageSize=5
+></ag-grid-angular>  -->
+    </div> 
+</div>  

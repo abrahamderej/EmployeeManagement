@@ -6,8 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HttpClient  } from '@angular/common/http';
 import { AgGridModule } from 'ag-grid-angular';
-//import { ToastrModule} from 'ngx-toastr'; 
-//import { SidebarModule} from 'ng-sidebar';
+import { Routes, RouterModule } from '@angular/router';
+import { SidebarModule} from 'ng-sidebar';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -16,21 +16,23 @@ import { EmployeeService } from './services/employee.service';
 import { EmployeeRoutingModule } from './employee/employee-routing.module';
 import { BsDatepickerModule, DatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ToastrModule } from 'ngx-toastr';
+import { EmployeeComponent } from './employee/employee.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-   // EmployeeComponent
+    EmployeeComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    RouterModule,
     EmployeeRoutingModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    //SidebarModule.forRoot(),
+    SidebarModule.forRoot(),
     ReactiveFormsModule ,
     AgGridModule.withComponents([]),
    // BsDatepickerModule.forRoot(),
